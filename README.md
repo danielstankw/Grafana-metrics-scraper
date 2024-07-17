@@ -1,11 +1,13 @@
 ## About
 
-The `grafana_metrics_used.py` is an extension of `grafana_query_scrapper.py` (https://github.com/danielstankw/Grafana-metrics/tree/main/query_scraper).   
-It allows to connect to the Grafana API, scrapes all the dashboards looking for two things: variables and PromQL queries, with goal of collecting all the metrics that are being used by the dashboards.  
-Once all the queries and variables are collected they are then preprocessed to extract **just** the metrics and further any repeated metrics are deleted and they are sorted in alphabethical order.  
+The `grafana_metrics_used.py` script extends the functionality of my [Query Scraper](https://github.com/danielstankw/Grafana-metrics/tree/main/query_scraper).   
 
-We go from this:
+It connects to the Grafana API and scrapes all the dashboards for two key items: **variables** and **PromQL queries**.   
 
+The goal is to gather all the metrics used in the dashboards.
+After collecting the queries and variables, the script preprocesses them to extract only the metrics. It then removes any duplicates and sorts the metrics in alphabetical order.
+
+#### Step 1: We go from this
 ```json
     {
         "dashboard": "MyDashboard / K8s / Cluster / Ephemeral Storage",
@@ -23,9 +25,7 @@ We go from this:
             "kube_ingress_info",
 
 ```
-
-To the final product
-
+#### Step 2: ... to this - clean :) 
 ```json
     "cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits",
     "cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests",
@@ -43,12 +43,12 @@ To the final product
     "kube_configmap_info",
 ```
 
-By obtaining this list of metrics, user knows exactly what metrics are needed for the existing dashboards to run correctly. Any other metrics can be restricted or fully deleted, thus reducing the amount of metrics being scraped by Prometheus resulting in faster query time, saved memory and more robust monitoring solution. 
+By obtaining this list of metrics, users can identify the exact metrics required for the existing dashboards to function correctly. Any unnecessary metrics can be restricted or deleted, reducing the number of metrics scraped by Prometheus. This results in faster query times, saved memory, and a more robust monitoring solution.
 
+## How to run the script? 
+>Note: If there will be demand I can dockerize the application and make it more *fancy*. The script is so simple that I kept it in its bare form.
 
-### How to run the script? 
-
-To run you will need to modify the following in the `grafana_query_scraper.py`  
+To run you will need to modify the following in the `grafana_query_scraper.py`, and provide your grafana URL as well as Grafana API key (*read further to see how to get it*). 
 
 ```py
 if __name__ == "__main__":
