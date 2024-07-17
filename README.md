@@ -63,6 +63,7 @@ if __name__ == "__main__":
 
 Install the relevant dependancies and execute the script:
 ```bashrc
+pip install requests
 python3 grafana_query_scrapper.py
 ```
 
