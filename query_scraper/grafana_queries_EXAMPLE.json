@@ -1,0 +1,21 @@
+    {
+        "dashboard": "MyDashboard / K8s / Optimization of Prometheus",
+        "expressions": [
+            "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$pod\", image!=\"\", container!=\"\", cluster=\"$cluster\"}[$__rate_interval])) by (container)",
+            "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$pod\", image!=\"\", container!=\"\", cluster=\"$cluster\"}) by (container)"
+        ],
+        "variables": [
+            "label_values(up{job=\"kube-state-metrics\"},cluster)",
+            "label_values(kube_pod_info{cluster=\"$cluster\"},namespace)",
+            "label_values(kube_pod_info{cluster=\"$cluster\", namespace=\"$namespace\"},pod)"
+        ]
+    },
+    {
+        "dashboard": "MyDashboard / K8s / Pods / Completed",
+        "expressions": [
+            "sum(kube_pod_status_phase{phase=\"Succeeded\",cluster=\"$cluster\"})",
+            "kube_pod_status_phase{phase=\"Succeeded\",cluster=\"$cluster\"} > 0"
+        ],
+        "variables": [
+            "label_values(up{job=\"kube-state-metrics\"},cluster)"
+        ]
