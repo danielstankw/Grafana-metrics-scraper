@@ -3,6 +3,22 @@
 This scrippt connect to the grafana dashboard and scrapes the PromQL expressions as well as variables. 
 By doing that user obtains all the relevant metrics needed for use of the given dashboard.
 
+
+To run you will need to modify the following in the `grafana_query_scraper.py`  
+
+```py
+if __name__ == "__main__":
+
+    # Your grafana url 
+    grafana_url = "<YOUR-GRAFANA-URL>"  
+    # API key - see readme.md for instruction
+    api_key = "<YOUR-GRAFANA-API-KEY>"
+    # File name where the result of scrape will be saved
+    file_name = 'grafana_queries.json'
+```
+
+
+
 The example output has the following form:
 
 ```json
