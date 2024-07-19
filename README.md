@@ -46,7 +46,11 @@ After collecting the queries and variables, the script preprocesses them to extr
 By obtaining this list of metrics, users can identify the exact metrics required for the existing dashboards to function correctly. Any unnecessary metrics can be restricted or deleted, reducing the number of metrics scraped by Prometheus. This results in faster query times, saved memory, and a more robust monitoring solution.
 
 ## How to run the script? 
->Note: If there will be demand I can dockerize the application and make it more *fancy*. The script is so simple that I kept it in its bare form.
+
+# 1. Docker
+
+
+# 2. Python
 
 To run you will need to modify the following in the `grafana_query_scraper.py`, and provide your grafana URL as well as Grafana API key (*read further to see how to get it*). 
 
